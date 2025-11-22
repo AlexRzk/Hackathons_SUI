@@ -1,39 +1,32 @@
 module game::monster_hatchery {
-    use sui::object::{Self, UID};
-    use sui::transfer;
-    use sui::tx_context::{Self, TxContext};
-    use sui::coin::{Self, Coin};
+    use sui::clock::Clock;
+    use std::string::String;
+    use sui::coin::Coin;
     use sui::balance::{Self, Balance};
-    use sui::clock::{Self, Clock};
-    use std::string::{Self, String};
     
+    // Import de ton module de monnaie
     use game::gem_currency::GEM_CURRENCY;
 
     // --- Constantes ---
-    // Prix des oeufs
     const PRICE_COMMON: u64 = 100;
     const PRICE_RARE: u64 = 500;
     const PRICE_EPIC: u64 = 1000;
 
-    // Raretés
     const RARITY_COMMON: u8 = 1;
     const RARITY_RARE: u8 = 2;
     const RARITY_EPIC: u8 = 3;
 
-    // Erreurs
     const ENotEnoughMoney: u64 = 0;
     const EUnknownRarity: u64 = 1;
 
-    // --- Les Objets ---
+    // --- Les Objets (public struct pour Move 2024) ---
 
-    // L'objet OEUF (Intermédiaire)
-    struct Egg has key, store {
+    public struct Egg has key, store {
         id: UID,
-        rarity: u8, // 1 = Common, 2 = Rare, 3 = Epic
+        rarity: u8,
     }
 
-    // L'objet MONSTRE (Final)
-    struct Monster has key, store {
+    public struct Monster has key, store {
         id: UID,
         name: String,
         rarity: u8,
@@ -43,8 +36,7 @@ module game::monster_hatchery {
         level: u8,
     }
 
-    // La Boutique
-    struct Shop has key {
+    public struct Shop has key {
         id: UID,
         profits: Balance<GEM_CURRENCY>
     }
@@ -58,62 +50,63 @@ module game::monster_hatchery {
         });
     }
 
-    // --- Fonctions d'Achat (Mint de l'Oeuf) ---
+    // --- Fonction 1 : Acheter un oeuf ---
 
-    public entry fun buy_egg(
+    #[allow(lint(self_transfer))]
+    public fun buy_egg(
         shop: &mut Shop, 
         payment: &mut Coin<GEM_CURRENCY>, 
         rarity_choice: u8,
         ctx: &mut TxContext
     ) {
-        // 1. Déterminer le prix
+        // 1. Définir le prix
         let price = if (rarity_choice == RARITY_COMMON) { PRICE_COMMON }
         else if (rarity_choice == RARITY_RARE) { PRICE_RARE }
         else if (rarity_choice == RARITY_EPIC) { PRICE_EPIC }
         else { abort EUnknownRarity };
 
-        // 2. Vérifier et payer
-        assert!(coin::value(payment) >= price, ENotEnoughMoney);
-        let coin_paid = coin::split(payment, price, ctx);
-        balance::join(&mut shop.profits, coin::into_balance(coin_paid));
+        // 2. Vérifier le solde
+        assert!(payment.value() >= price, ENotEnoughMoney);
+        
+        // 3. Paiement
+        let coin_paid = payment.split(price, ctx);
+        balance::join(&mut shop.profits, coin_paid.into_balance());
 
-        // 3. Créer l'Oeuf correspondant
+        // 4. Création de l'oeuf
         let egg = Egg {
             id: object::new(ctx),
             rarity: rarity_choice
         };
 
-        transfer::public_transfer(egg, tx_context::sender(ctx));
+        // 5. Envoi au joueur
+        transfer::public_transfer(egg, ctx.sender());
     }
 
-    // --- Fonction d'Eclosion (Burn Egg -> Mint Monster) ---
+    // --- Fonction 2 : Faire éclore l'oeuf ---
 
-    // Note: On a besoin de l'objet "Clock" pour générer un peu d'aléatoire basé sur le temps
-    public entry fun hatch_egg(egg: Egg, clock: &Clock, monster_name: vector<u8>, ctx: &mut TxContext) {
-        
-        // 1. On récupère les infos de l'oeuf avant de le détruire
+    #[allow(lint(self_transfer))]
+    public fun hatch_egg(egg: Egg, clock: &Clock, monster_name: vector<u8>, ctx: &mut TxContext) {
         let rarity = egg.rarity;
         
-        // 2. DESTRUCTION DE L'OEUF (Unpacking)
+        // 1. Destruction de l'objet Oeuf (Unpacking)
         let Egg { id, rarity: _ } = egg;
-        object::delete(id); // On supprime définitivement l'ID de l'oeuf de la blockchain
+        object::delete(id); 
 
-        // 3. Calcul des stats basé sur la rareté et le temps
-        // (Ceci est un pseudo-random simple pour l'exemple)
-        let time_factor = clock::timestamp_ms(clock); 
+        // 2. Calcul aléatoire (basé sur l'horloge)
+        let time_factor = clock.timestamp_ms(); 
         
-        // Base stats selon la rareté
+        // Stats de base
         let (base_str, base_agi, base_int) = if (rarity == RARITY_COMMON) { (5, 5, 5) }
         else if (rarity == RARITY_RARE) { (15, 15, 15) }
-        else { (30, 30, 30) }; // Epic
+        else { (30, 30, 30) };
 
-        // Bonus aléatoire (modulo 10)
-        let random_bonus = (time_factor % 10) as u64;
+        // Bonus aléatoire (Correction des parenthèses appliquée ici)
+        let random_bonus = ((time_factor % 10) as u64);
 
-        // 4. Création du Monstre
+        // 3. Création du Monstre
         let monster = Monster {
             id: object::new(ctx),
-            name: string::utf8(monster_name),
+            name: std::string::utf8(monster_name),
             rarity: rarity,
             strength: base_str + random_bonus,
             agility: base_agi + random_bonus,
@@ -121,6 +114,7 @@ module game::monster_hatchery {
             level: 1
         };
 
-        transfer::public_transfer(monster, tx_context::sender(ctx));
+        // 4. Envoi au joueur
+        transfer::public_transfer(monster, ctx.sender());
     }
 }

@@ -1,13 +1,12 @@
 module game::gem_currency {
-    use std::option;
     use sui::coin;
-    use sui::transfer;
-    use sui::tx_context::{Self, TxContext};
-
+    
+    
     // Le One Time Witness (doit avoir le même nom que le module en majuscules)
-    struct GEM_CURRENCY has drop {}
+    public struct GEM_CURRENCY has drop {}
 
     // Initialisation du token
+    #[allow(deprecated_usage)]
     fun init(witness: GEM_CURRENCY, ctx: &mut TxContext) {
         let (treasury, metadata) = coin::create_currency(
             witness, 

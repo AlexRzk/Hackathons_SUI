@@ -1,6 +1,7 @@
 [package]
 name = "MonJeuSui"
 version = "0.0.1"
+edition = "2024.beta"
 
 [dependencies]
 # C'est cette ligne qui corrige l'erreur sur "struct" (en important SUI)
