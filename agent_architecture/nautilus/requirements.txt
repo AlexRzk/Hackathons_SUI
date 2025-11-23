@@ -1,0 +1,9 @@
+# Nautilus Hello World Dependencies
+ed25519==1.5
+requests==2.31.0
+
+# Nimbus Agent Kit (will be installed separately)
+# pysui>=0.52.0
+
+# Walrus Integration
+# walrus-sdk (custom)

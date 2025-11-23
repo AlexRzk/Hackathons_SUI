@@ -9,7 +9,7 @@ dist/
 *.dll
 *.exe
 
-# Move-specific
+# Move-specific (Blockchain SUI)
 traces/
 .trace
 .coverage*
