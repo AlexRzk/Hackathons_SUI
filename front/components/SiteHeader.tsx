@@ -4,6 +4,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { WalletConnectButton } from './WalletConnectButton';
+import { BattleMenu } from '@/app/_components/BattleMenu';
 
 type NavLink = {
   label: string;
@@ -60,6 +61,7 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ variant = 'glass', className }: SiteHeaderProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isBattleMenuOpen, setBattleMenuOpen] = useState(false);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const cancelScheduledClose = () => {
@@ -172,12 +174,29 @@ export function SiteHeader({ variant = 'glass', className }: SiteHeaderProps) {
           </nav>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setBattleMenuOpen(true)}
+            className="hidden items-center gap-2 rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 transition hover:border-[#330df2] hover:text-white md:inline-flex"
+          >
+            <span className="material-symbols-outlined text-base">swords</span>
+            Battle
+          </button>
           <WalletConnectButton />
+          <button
+            type="button"
+            onClick={() => setBattleMenuOpen(true)}
+            className="flex size-10 items-center justify-center rounded-lg text-white hover:bg-white/10 md:hidden"
+            aria-label="Open battle menu"
+          >
+            <span className="material-symbols-outlined">swords</span>
+          </button>
           <button className="flex size-10 items-center justify-center rounded-lg text-white hover:bg-white/10 md:hidden">
             <span className="material-symbols-outlined">menu</span>
           </button>
         </div>
       </div>
+      <BattleMenu isOpen={isBattleMenuOpen} onClose={() => setBattleMenuOpen(false)} />
     </header>
   );
 }
