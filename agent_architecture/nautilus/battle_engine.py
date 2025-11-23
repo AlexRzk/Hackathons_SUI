@@ -4,13 +4,25 @@ CHIMERA BATTLE ENGINE - Trinity Tactics AI
 ===========================================
 Off-chain battle simulation with optimized AI decision-making.
 Implements the Stone-Paper-Scissors combat system weighted by monster stats.
+Uses Gemini AI for intelligent attack selection.
 """
 
 import random
-import json
+import enum
+import time
+import os
+import requests
 import hashlib
-from typing import Dict, Tuple, List
+import json
+from typing import List, Dict, Optional, Tuple
 from enum import Enum
+
+# Import Gemini AI (optionnel)
+try:
+    from gemini_trader import GeminiTrader
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
 
 # === COMBAT ACTIONS (Trinity System) ===
 class Action(Enum):
@@ -123,16 +135,143 @@ class BattleAI:
         return chosen_action
 
 
+# === GEMINI AI FOR BATTLE ===
+class BattleGeminiAI:
+    """
+    Utilise Gemini AI pour choisir les attaques de manière intelligente
+    """
+    
+    def __init__(self):
+        """Initialise Gemini AI si disponible"""
+        self.gemini = None
+        if GEMINI_AVAILABLE:
+            api_key = os.getenv("GEMINI_API_KEY")
+            if api_key:
+                try:
+                    self.gemini = GeminiTrader(api_key)
+                    print("[BATTLE AI] Gemini activé pour les combats")
+                except Exception as e:
+                    print(f"[BATTLE AI] Erreur init Gemini: {str(e)[:50]}")
+    
+    def choose_action(self, attacker: Monster, defender: Monster, turn: int, battle_history: List[Dict]) -> Optional[Action]:
+        """
+        Demande à Gemini de choisir la meilleure attaque
+        
+        Returns:
+            Action si Gemini est disponible et répond, None sinon
+        """
+        if not self.gemini:
+            return None
+        
+        try:
+            # Construire le prompt pour Gemini
+            prompt = self._build_battle_prompt(attacker, defender, turn, battle_history)
+            
+            # Appeler Gemini
+            response = self.gemini.model.generate_content(prompt)
+            
+            # Parser la réponse
+            action = self._parse_battle_response(response.text)
+            
+            if action:
+                print(f"   [GEMINI] 🧠 {attacker.name} utilise {action.value}")
+                return action
+            
+        except Exception as e:
+            print(f"   [GEMINI] Erreur: {str(e)[:50]}")
+        
+        return None
+    
+    def _build_battle_prompt(self, attacker: Monster, defender: Monster, turn: int, battle_history: List[Dict]) -> str:
+        """Construit le prompt pour Gemini"""
+        
+        # Historique récent (3 derniers tours)
+        recent_history = battle_history[-3:] if len(battle_history) > 0 else []
+        history_text = ""
+        for h in recent_history:
+            history_text += f"  Tour {h.get('turn', 0)}: {h.get('m1_action', 'N/A')} vs {h.get('m2_action', 'N/A')}\n"
+        
+        prompt = f"""Tu es un expert en stratégie de combat Trinity Tactics.
+
+SYSTÈME DE COMBAT:
+- FORCE bat INTELLIGENCE (attaque brutale contre magie)
+- INTELLIGENCE bat AGILITY (magie contre vitesse)
+- AGILITY bat FORCE (esquive et contre-attaque)
+
+SITUATION ACTUELLE (Tour {turn}):
+Attaquant: {attacker.name}
+  - HP: {attacker.hp}/100
+  - Force: {attacker.strength}
+  - Agilité: {attacker.agility}
+  - Intelligence: {attacker.intelligence}
+
+Défenseur: {defender.name}
+  - HP: {defender.hp}/100
+  - Force: {defender.strength}
+  - Agilité: {defender.agility}
+  - Intelligence: {defender.intelligence}
+
+HISTORIQUE RÉCENT:
+{history_text if history_text else "  Aucun historique"}
+
+STRATÉGIE:
+1. Analyse les stats de l'adversaire pour prédire son action probable
+2. Si adversaire a Force élevée → il jouera probablement FORCE
+3. Si adversaire a Agilité élevée → il jouera probablement AGILITY
+4. Si adversaire a Intelligence élevée → il jouera probablement INTELLIGENCE
+5. Choisis l'action qui CONTRE son action probable
+
+Réponds UNIQUEMENT avec l'action: FORCE, AGILITY ou INTELLIGENCE (un seul mot, rien d'autre)"""
+        
+        return prompt
+    
+    def _parse_battle_response(self, response_text: str) -> Optional[Action]:
+        """Parse la réponse de Gemini pour extraire l'action"""
+        
+        # Nettoyer la réponse
+        clean_text = response_text.strip().upper()
+        
+        # Chercher les mots-clés
+        if "FORCE" in clean_text:
+            return Action.FORCE
+        elif "AGILITY" in clean_text or "AGILITÉ" in clean_text or "AGILITE" in clean_text:
+            return Action.AGILITY
+        elif "INTELLIGENCE" in clean_text:
+            return Action.INTELLIGENCE
+        
+        return None
+
+
 # === BATTLE ENGINE ===
 class BattleEngine:
     """Simulates turn-by-turn combat between two monsters."""
     
     MAX_TURNS = 15
+    USE_GEMINI_AI = os.getenv("USE_GEMINI", "false").lower() == "true"
     
     def __init__(self, monster1: Monster, monster2: Monster):
         self.monster1 = monster1
         self.monster2 = monster2
         self.battle_log: List[Dict] = []
+        
+        # Initialiser Gemini AI pour les combats
+        self.gemini_ai = None
+        if self.USE_GEMINI_AI and GEMINI_AVAILABLE:
+            self.gemini_ai = BattleGeminiAI()
+        
+    def choose_action(self, attacker: Monster, defender: Monster, turn: int) -> str:
+        """
+        Choose action using Gemini AI first, then fallback to deterministic logic.
+        """
+        # 1. Essayer Gemini AI d'abord
+        if self.gemini_ai:
+            gemini_action = self.gemini_ai.choose_action(attacker, defender, turn, self.battle_log)
+            if gemini_action:
+                return gemini_action.value
+        
+        # 2. Fallback: Deterministic Trinity Tactics AI
+        # Use the static method from BattleAI class
+        return BattleAI.choose_action(attacker, defender).value
         
     def calculate_damage(self, attacker: Monster, defender: Monster, action: Action, is_counter: bool) -> int:
         """
@@ -171,8 +310,13 @@ class BattleEngine:
         """Simulate one turn of combat."""
         
         # Both monsters choose their actions
-        action1 = BattleAI.choose_action(self.monster1, self.monster2)
-        action2 = BattleAI.choose_action(self.monster2, self.monster1)
+        # Use self.choose_action which tries AI first
+        action1_str = self.choose_action(self.monster1, self.monster2, turn_num)
+        action2_str = self.choose_action(self.monster2, self.monster1, turn_num)
+        
+        # Convert string back to Action enum
+        action1 = Action(action1_str)
+        action2 = Action(action2_str)
         
         # Determine who countered whom
         m1_countered = (COUNTER_MATRIX[action2] == action1)

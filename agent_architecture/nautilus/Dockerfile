@@ -22,6 +22,7 @@ COPY sui-agent-kit /app/sui-agent-kit
 
 # 5. Copie des fichiers de l'agent
 COPY nautilus/app.py .
+COPY nautilus/gemini_trader.py .
 COPY nautilus/battle_engine.py .
 COPY nautilus/battle_orchestrator.py .
 COPY nautilus/nautilus_enclave.py .

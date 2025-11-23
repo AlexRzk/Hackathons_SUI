@@ -3,6 +3,7 @@ ed25519==1.5
 requests
 flask
 pynacl
+google-generativeai==0.8.3
 # The version '==2.31.0' was previously associated with 'requests'.
 # As per the instruction, 'requests' is now unversioned.
 # If 'pynacl' is intended to have a version, please specify it on the same line.
