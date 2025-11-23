@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Monster Lab - Your Genetics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00FFFF",
+                        "secondary": "#BE2EDD",
+                        "background-light": "#F5F5F5",
+                        "background-dark": "#1A1C28",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px",
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+
+        .rarity-common {
+            background-color: #A0AEC0;
+            color: #1A1C28;
+        }
+
+        .rarity-rare {
+            background-color: #3B82F6;
+            color: #F5F5F5;
+        }
+
+        .rarity-epic {
+            background-color: #BE2EDD;
+            color: #F5F5F5;
+        }
+
+        .rarity-legendary {
+            background-color: #FBBF24;
+            color: #1A1C28;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1280px] flex-1">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-10 py-4">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-[#F5F5F5] text-xl font-bold leading-tight tracking-[-0.015em]">Monster Genetics</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="hidden sm:flex items-center gap-3 bg-white/5 border border-white/10 rounded-full py-1.5 px-4 text-sm">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+<p class="text-[#F5F5F5]">Connected: <span class="text-[#A0AEC0] font-mono">0x4a...2f1b</span></p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCizq36cC9sxYQK70P2kFHsC5oaisGCoRbtBaRLmMJ8ky4gKGhNPTpRKo-ZIDCRvn18QcWw890VIWbzw-I4EE0tn1Sz5J-5fi2lZ4__Uphwu9yRCCaQT3YQAd9zXpIzT1d767aHf3WgktBbEJRzYhKzr99-RzH64tRjJ4ZZoqr-fym_0kNjPRcopRBm7IF7P2r61NFaRi0xfGdp-HK7QreLpcEXxSnUPLPnVw50If8K5y7AIlKNUmguke7JTiCJYOPezIKrgxQ1iYQ");'></div>
+</div>
+</header>
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-4 p-4 mt-8">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-[#F5F5F5] text-4xl font-bold leading-tight tracking-[-0.033em]">Your Laboratory</p>
+<p class="text-[#A0AEC0] text-base font-normal leading-normal">Manage, view, and sort your collected monster NFTs.</p>
+</div>
+</div>
+<!-- Chips/Filters -->
+<div class="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-white/10">
+<div class="flex gap-2 sm:gap-3 overflow-x-auto">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary pl-4 pr-3 text-background-dark transition-opacity hover:opacity-80">
+<p class="text-sm font-bold leading-normal">Rarity</p>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 pl-4 pr-3 text-[#F5F5F5] transition-colors hover:bg-white/10">
+<p class="text-sm font-medium leading-normal">$AGI</p>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 pl-4 pr-3 text-[#F5F5F5] transition-colors hover:bg-white/10">
+<p class="text-sm font-medium leading-normal">$INT</p>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 pl-4 pr-3 text-[#F5F5F5] transition-colors hover:bg-white/10">
+<p class="text-sm font-medium leading-normal">$POW</p>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+</div>
+<button class="flex h-10 w-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 text-[#F5F5F5] transition-colors hover:bg-white/10">
+<span class="material-symbols-outlined text-xl">swap_vert</span>
+</button>
+</div>
+<!-- ImageGrid -->
+<div class="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-6 p-4">
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Aetherius" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAVIuiL9xiZJNfizkJkKHPqxZrQEHTj9b8L3mhbBc2lkfHtD3oKReustxC6-Qrzc1ntejgAlxSKJEVXRmnyg2mlTAA6QnrBQGiu5jolWQ1Sn_eTJ720yqNHh1QPj4ibeY4iFk6w9DitzDiSQlCsYq4UERiE5TxttGB6qsyZB0HmLnq_9ynczjiGvY7dqwvOjwcNEJpsvQJFHE0fqeYVWmbunFY-PKW5Ys_4nhUWblCk-xIWQSkHzOXE6l-zmHjyj4fM_kmZLKKKJdo");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Aetherius #015</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-legendary">Legendary</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 88</span>
+<span>INT: 92</span>
+<span>POW: 95</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Cybersaur" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCgfRnnejTq2FtjlMBABQN1mvqWiXpvU9VzbsSBgG5TtfiUgUu8Vges5f5lU7L_nqUjpCU-OV4dR6r4Wfi0ijfehCVn5ndynQkOujAqr2I9JWVB_9O0gdmF-XDxv3xd0HbpaEob_cwVaoaNmBlUJt1mk4T8rKWAF2FUPsQmH-OQjcNUau5x7L-oH8MIwirjoLcLvANH8vDhqoJiygQmK8g2jyHoVKFFQkzDhjPn-dRQEU985uszvEb6VYdNtbH9KiViB9f7LRQ-7g0");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Cybersaur #102</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-epic">Epic</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 80</span>
+<span>INT: 75</span>
+<span>POW: 85</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Gloomfang" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4GNv-8oSmhpLgLOxXlSclkUT1uZVu74W8znSn8PbkabfzMEvdoSSv8oET9jTQB_ovnjTEVOpaWHi8TNfGlNLGCH5yA2XoI-oiSqz2COTs4UufRsl_7mzOZcRxisvnZcJnWUPxiYQ07etaTedcMA80T0SiMnnLIqZW0Ndz1rhcPeGL30ePQMTbQAir6BNhyBpCGJpto9oKlAuwRdce65LX2RCmETckcW1diJKrOm-vVB9YowgeUCyGoM6tqTtPDZrnsqfPKwCYQ6E");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Gloomfang #087</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-rare">Rare</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 65</span>
+<span>INT: 90</span>
+<span>POW: 70</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Voltwing" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTVUbDAoiXJknhiTV_NFVmLD0jo4jpg32859PfIcLKG0VN91YD46A3Kd5dCcORr4hRYjzWjc1eHiR7a_EdbpOqBpKDw4lNpRxg4fqwTlC6hVBVOVygl2r30G9KWbfPmCKXETZKM1582WT4KphVapziQjUOq_fxndv1P_8Dtnrjjy-BHX4Xh5MgXgTE0pafw2AZbFzVI2Hqw0c1Z1QUI-9RjS0rfjCcYsiX7kLUUPAadiGBvAnm84t7qpTBP-9jsGh2VBFBJR-pkf4");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Voltwing #231</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-rare">Rare</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 95</span>
+<span>INT: 60</span>
+<span>POW: 80</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Chrono-Pup" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDO9j5maiDiUzQI8uKSfv_XBHN8sx4172MUgwhuFWVnC4OWIh70cE_bCFTl-H6uVxbqf0W_bR4QSgOqNmBY4iRf0MT_E339TNs5-nLcxoS_YniNsTaZSXfQJwitw5qk0bgX87aGjsIh9VnbdRB0PUPsDNuIes29y-lR367GWh35l_zZMwPbTTczPQdftAz9gGkJLx9LNVt9c1JUwbYxKpmYUnBzaJDvMYOUcw_egh_3psXf8YDfkQdQ3txIC-CUfssI9YvtfhQDYA");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Chrono-Pup #301</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-common">Common</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 50</span>
+<span>INT: 60</span>
+<span>POW: 45</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-xl bg-white/5 p-3 transition-all hover:scale-105 hover:bg-white/10 cursor-pointer">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="NFT image of Abyssal" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuwSCj4cAkKqKddFu_r1dZknVbI-pDALzeAUgdSYOco-YR-3devuc25TSuTMfnIe2IFq2iNqlnhTo6pde7P_cgqSH4vMm90poF2N73cqbwkVQsyE4NOmeoXvVqG3N7cbFaPojGZg7QGZubZEXWSDJyT5PAA9EPmu8oT--mCtxF9u4f8J5um5IcjWE6OrjhhYaiaxMPAt8u3J8g0hpMluwt-2_zd0jwFs4yqj3LouRaGZ6-DLJxRsrmxcfbtC3DqSFHZwRAkgxzu-k");'></div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<p class="text-[#F5F5F5] text-base font-bold leading-normal">Abyssal #119</p>
+<div class="px-2 py-0.5 rounded-full text-xs font-bold rarity-epic">Epic</div>
+</div>
+<div class="text-[#A0AEC0] text-sm font-normal leading-normal font-mono flex flex-col">
+<span>AGI: 72</span>
+<span>INT: 85</span>
+<span>POW: 90</span>
+</div>
+</div>
+</div>
+</div>
+<!-- EmptyState (Uncomment to view) -->
+<!-- 
+                    <div class="flex flex-col px-4 py-20 items-center justify-center">
+                        <div class="flex flex-col items-center gap-6">
+                            <div class="bg-center bg-no-repeat aspect-square bg-contain w-full max-w-[240px]" data-alt="An illustration of an empty laboratory beaker." style='background-image: url("https://storage.googleapis.com/pai-images/91a3a69a91d24c3cb162095f9d14a51e.png"); filter: brightness(0.8) contrast(1.2);'></div>
+                            <div class="flex max-w-[480px] flex-col items-center gap-2">
+                                <p class="text-[#F5F5F5] text-xl font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Your Lab is Empty</p>
+                                <p class="text-[#A0AEC0] text-base font-normal leading-normal max-w-[480px] text-center">Connect your wallet to see your monsters, or explore the Marketplace to acquire your first one!</p>
+                            </div>
+                            <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] transition-opacity hover:opacity-80">
+                                <span class="truncate">Go to Marketplace</span>
+                            </button>
+                        </div>
+                    </div> 
+                    -->
+</div>
+</div>
+</div>
+</div>
+</body></html>

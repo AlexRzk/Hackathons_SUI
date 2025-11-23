@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Assemble Your Squad</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#330df2",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#131022",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-6 md:px-10 py-3">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Monster NFTs</h2>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4 sm:gap-8">
+<div class="flex items-center gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-white/10 text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white text-xl">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-white/10 text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white text-xl">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBs_v7Sb4dT1bZyZfgXAP1SImQwNzxAPgpY2h8kz9auFsWh-LN7ZXjvgvHEZCFa5iPBIf3qwWugvpgwW3sknGK2uNkeVE8vGf-4WrRzL5FJDWJYIPg8mI3KuM5OnUVHt9kjVY0A8tb_h3i6s5LM5Fk3DqGQZQsRQ5Agq44ooXxLLHyXqJDsC-dQEzZvr078KDpNWq5q9I5D0ozigD48RbU83Ez-L7gyMHzAKXd5ehtwi9NPPH-QXjztts7pBZ_I1ahLA_Lz4SH3LtY");'></div>
+</div>
+</header>
+<main class="flex flex-col gap-8 mt-8">
+<div class="flex flex-wrap justify-between items-center gap-4 px-4">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-white text-4xl font-black leading-tight tracking-[-0.033em]">Assemble Your Squad</p>
+<p class="text-gray-400 text-base font-normal leading-normal">Drag and drop your monsters into the slots below to build your team.</p>
+</div>
+<button class="flex items-center justify-center rounded-lg h-12 bg-primary text-white gap-2 text-base font-bold leading-normal px-6 hover:bg-primary/90 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed">Save Team</button>
+</div>
+<div class="flex flex-col gap-4">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Active Battle Team</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+<!-- Active Monster Slot 1 -->
+<div class="relative group cursor-grab active:cursor-grabbing bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-[3/4] border-2 border-dashed border-white/20" data-alt="Aqua Serpent monster card background image" style='background-image: linear-gradient(0deg, rgba(19, 16, 34, 0.8) 0%, rgba(19, 16, 34, 0) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJEMIi7d9n4GsUpiqkxjNPPcg5YUaSTui3uSPOAxb4M4zTlg28ivRubLO4YFJOgoBKf9ZHNJ_A7yPqjJQOXMGY-L4w9mopg8eWScMQE7vqG_u4eiManrMELvjfCGlibxTHluEIE3Pc_z8Yj__PXkFUvlAeYoGxph7Lm4xInJbPBwVSeO3eMPqVDeWJ0Q5O9S-vjcj9qWtQLXMG2e7qbJR3HhJFkFCb7CRPTl1om8co2lWuZncFHOGgkP8nKXNiSaknYAG9dqf8Kmg");'>
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex items-center justify-center size-8 rounded-full bg-black/50 text-white hover:bg-red-600">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-xl font-bold leading-tight">Aqua Serpent</p>
+<span class="text-sm text-gray-300">Level 88</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-blue-500/30 text-blue-300 border border-blue-400">Water</span>
+</div>
+</div>
+<!-- Active Monster Slot 2 (Empty) -->
+<div class="cursor-pointer bg-white/5 hover:bg-white/10 border-2 border-dashed border-white/20 flex flex-col gap-3 rounded-xl justify-center items-center p-4 aspect-[3/4] transition-colors">
+<span class="material-symbols-outlined text-5xl text-gray-500">add_circle</span>
+<p class="text-gray-400 text-lg font-bold leading-tight">Add Monster</p>
+</div>
+<!-- Active Monster Slot 3 -->
+<div class="relative group cursor-grab active:cursor-grabbing bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-[3/4] border-2 border-dashed border-white/20" data-alt="Magma Golem monster card background image" style='background-image: linear-gradient(0deg, rgba(19, 16, 34, 0.8) 0%, rgba(19, 16, 34, 0) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCXfV39O9PRggbKoKrM65iG8YtytYaoiygm2HnK196b2b8iq4TuBpvngWUiC_wWqKKTRGhx-5npuEWrOLL4o49LRteOLI8EmmZlg-2WflHO-JjfXzxTJ-Yf6P0UYeznesTXmzRJwvI8bxq1to3yTJfnnR_Z6heB4JOx_-2LFUSkClhBh6FpMrUiUhlB4j1kCSTJdoGisNlt751Oxzj392E3t4gwVbbPEQkmOWeSToZcNBgflCCts-vV6JyOOgTUnEO99AmAW2ufNCw");'>
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex items-center justify-center size-8 rounded-full bg-black/50 text-white hover:bg-red-600">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<div class="flex flex-col">
+<p class="text-white text-xl font-bold leading-tight">Magma Golem</p>
+<span class="text-sm text-gray-300">Level 95</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-red-500/30 text-red-300 border border-red-400">Fire</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap items-center justify-between gap-4 px-4 pb-3 pt-5">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">My Monster Collection</h2>
+<p class="text-gray-400 text-sm">Showing 12 / 150 Monsters</p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-4 px-4">
+<div class="relative w-full sm:flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+<input class="w-full h-12 rounded-lg bg-white/10 border-white/20 pl-10 pr-4 text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Search by name..." type="text"/>
+</div>
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<select class="w-full sm:w-auto h-12 rounded-lg bg-white/10 border-white/20 text-white focus:ring-2 focus:ring-primary focus:border-primary">
+<option>Sort by Rarity</option>
+<option>Common</option>
+<option>Rare</option>
+<option>Epic</option>
+<option>Legendary</option>
+</select>
+<select class="w-full sm:w-auto h-12 rounded-lg bg-white/10 border-white/20 text-white focus:ring-2 focus:ring-primary focus:border-primary">
+<option>Filter by Type</option>
+<option>Water</option>
+<option>Fire</option>
+<option>Earth</option>
+<option>Air</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6 p-4">
+<!-- Collection Monster Card 1 -->
+<div class="bg-[#1A1A2E] rounded-xl overflow-hidden cursor-grab active:cursor-grabbing border-2 border-primary/50 relative group">
+<div class="absolute top-2 right-2 flex items-center gap-1 bg-primary text-white rounded-full px-2 py-0.5 text-xs font-bold z-10">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Team</span>
+</div>
+<div class="bg-cover bg-center aspect-square" data-alt="Aqua Serpent monster card art" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBxvh3So_5bQ3rzunPNz-LcKyeyI8yVMemGaoXz6HMM9N2cJo7oQf9RzhqP_5rgvLqxjpuZsFDiiAqFREwVid3QcJJbCv8mwXFynW3iRZT6HoVbP5zDIcI-Y5AZs6D3Ee-w_x8CYUzcTS-dlbx_slTFnKr6s0XLRaN9p3dJ2l0Ok61hRYQ4aPYhjNgVJRWa6H15tb1gyZA0zkksh1y0jjYctkghAoIrZJHcLARqmIpkXvUpxTSACvr1JprODQ-Ge1fcVlQ-3W-BTA8");'></div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-white text-lg">Aqua Serpent</p>
+<p class="text-gray-400 text-sm">Level 88</p>
+</div>
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-blue-500/30 text-blue-300 border border-blue-400">Water</span>
+</div>
+<div class="flex justify-between text-sm text-gray-300 border-t border-white/10 pt-3">
+<span>ATK: <strong class="text-white">1200</strong></span>
+<span>DEF: <strong class="text-white">950</strong></span>
+<span>HP: <strong class="text-white">2100</strong></span>
+</div>
+</div>
+</div>
+<!-- Collection Monster Card 2 -->
+<div class="bg-[#1A1A2E] rounded-xl overflow-hidden cursor-grab active:cursor-grabbing border-2 border-transparent hover:border-primary transition-colors">
+<div class="bg-cover bg-center aspect-square" data-alt="Stonehide Rhino monster card art" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD50htleaL4fItzJTaxv2o4UD4lsQl3_j6QhRLvO9_GX5zUZkgDPMsHwEvgAYyKGmMhoIDrJ86IRVPTSgNpI3Gcdp7LrxdCUw-nIGgj4CqqAVoboyjDNOP6orQRZFLbB1dlJUsjP9ZwspM3ocHUNvvlYeLhOx6emJrE2XY2Xh7BS1riVxtKxw28EAaN1bgFqjLomiMy4sc7shJn58krzP2r5zphJ-9jw3WmlQsJd0mzZTVb4wqDvixe1wbN6tRHGX6YmE202nJHaFU");'></div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-white text-lg">Stonehide Rhino</p>
+<p class="text-gray-400 text-sm">Level 75</p>
+</div>
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-yellow-800/30 text-yellow-500 border border-yellow-600">Earth</span>
+</div>
+<div class="flex justify-between text-sm text-gray-300 border-t border-white/10 pt-3">
+<span>ATK: <strong class="text-white">800</strong></span>
+<span>DEF: <strong class="text-white">1500</strong></span>
+<span>HP: <strong class="text-white">2500</strong></span>
+</div>
+</div>
+</div>
+<!-- Collection Monster Card 3 -->
+<div class="bg-[#1A1A2E] rounded-xl overflow-hidden cursor-grab active:cursor-grabbing border-2 border-primary/50 relative group">
+<div class="absolute top-2 right-2 flex items-center gap-1 bg-primary text-white rounded-full px-2 py-0.5 text-xs font-bold z-10">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Team</span>
+</div>
+<div class="bg-cover bg-center aspect-square" data-alt="Magma Golem monster card art" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBuuEDaO8zHfcW3V-yo-HABqtpcMYzAJX3XQzMLQDv5JVbt2ESY5aVLL9160nkbyV8P5e1hlkYxTC4huQ9Y-NvpAVN24T5G_8CWHP79j1_RE5oCVl_y67qi0UJxzUUNNaSxpZZNQD-PMcrCWq-MuTsTJivVQRyeREPByvCIvwMbiIid-JvCchGhoxuXlIu4XyzRQ3cxetVTZZV_hDDglD5WGCRhiTvt9AHZIfeZ7Su9yPxZLngQMJ1cMPP_ClXhKKAdjSdsS0Q9jNg");'></div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-white text-lg">Magma Golem</p>
+<p class="text-gray-400 text-sm">Level 95</p>
+</div>
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-red-500/30 text-red-300 border border-red-400">Fire</span>
+</div>
+<div class="flex justify-between text-sm text-gray-300 border-t border-white/10 pt-3">
+<span>ATK: <strong class="text-white">1500</strong></span>
+<span>DEF: <strong class="text-white">1100</strong></span>
+<span>HP: <strong class="text-white">1900</strong></span>
+</div>
+</div>
+</div>
+<!-- Collection Monster Card 4 -->
+<div class="bg-[#1A1A2E] rounded-xl overflow-hidden cursor-grab active:cursor-grabbing border-2 border-transparent hover:border-primary transition-colors">
+<div class="bg-cover bg-center aspect-square" data-alt="Skywing Griffin monster card art" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCZ4FAd2VcbuibEdhfSj0z_Iqcruva8IAxT-ygO0gZ1fu7kCVwzQdi7Biy4uArno-pknTKgtf5ftw4aYzklqwzDFVhl16fZmUIgJuYg33wsFeMQ9Ela2KG0eXTOzCM9hqhD5Y0P_1f36bmN_xk42d5E7ti8HZtA0Ih8KCzrZADIR7F_CRPCGq8xePpwhu3yAigwSZF6-3PUM-R047B-0ioxp8GCOP7fRZ0YZGnV4_9uedOYwzNIfo51Rhftqknb9zbV7ACei9d9rIg");'></div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-white text-lg">Skywing Griffin</p>
+<p class="text-gray-400 text-sm">Level 82</p>
+</div>
+<span class="text-xs font-bold py-1 px-2.5 rounded-full bg-cyan-500/30 text-cyan-300 border border-cyan-400">Air</span>
+</div>
+<div class="flex justify-between text-sm text-gray-300 border-t border-white/10 pt-3">
+<span>ATK: <strong class="text-white">1350</strong></span>
+<span>DEF: <strong class="text-white">800</strong></span>
+<span>HP: <strong class="text-white">1800</strong></span>
+</div>
+</div>
+</div>
+<!-- Additional Cards can be added here -->
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@mysten/enoki": "^0.12.12",
+    "lucide-react": "^0.554.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

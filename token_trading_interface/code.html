@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MonsterMarket - Token Trading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#6A00F4",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#121212",
+                        "panel-dark": "#1E1E1E",
+                        "buy": "#00FFA3",
+                        "sell": "#FF4D4D",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-white">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-panel-dark px-6 py-3 sticky top-0 bg-background-dark z-50">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">MonsterMarket</h2>
+</div>
+<nav class="hidden lg:flex flex-1 justify-center items-center gap-9">
+<div class="relative group">
+<a class="text-white/70 hover:text-white text-sm font-medium leading-normal flex items-center gap-1" href="#">
+<span>Lab</span>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</a>
+<div class="hidden group-hover:block absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-panel-dark rounded-lg shadow-lg py-2">
+<a class="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5" href="#">Genetics</a>
+<a class="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5" href="#">Equipment</a>
+</div>
+</div>
+<div class="relative group">
+<a class="text-white font-bold text-sm leading-normal flex items-center gap-1" href="#">
+<span>Market</span>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</a>
+<div class="hidden group-hover:block absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-panel-dark rounded-lg shadow-lg py-2">
+<a class="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5" href="#">Monsters</a>
+<a class="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5" href="#">Equipment</a>
+<a class="block px-4 py-2 text-sm text-white font-bold bg-white/10" href="#">Tokens</a>
+</div>
+</div>
+<a class="text-white/70 hover:text-white text-sm font-medium leading-normal" href="#">Leaderboard</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Connect Wallet</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0CXuPO19tORp9-O4yBGo9NsN_juXm92_7bifSBKMJ570VMutNqfa-3PCzqzhlmY3OZM7SFGZYqTx32eAc3CjViqYRWepYLN8H3ph52WgXw3eSeUkdt8JuieEimuT9EqtAYdBH2cB3Twm3gxf2fDnqXg9Zdq395uLf-RTHLK87_SVBpC-_r69R_7fqipOtxvQoUhIrh6c58sF3AkCj7kh8eOHE2nAz6VXcstJnJ5SAjVT0rRlgdyQ3l8a5tS3BlIqqyz5afPay9ac");'></div>
+</div>
+</header>
+<div class="border-b border-panel-dark">
+<div class="flex px-6 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-white pb-[13px] pt-4" href="#">
+<p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">$AGI 1.23 <span class="text-buy">+2.5%</span></p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/50 hover:text-white/80 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">$POW 0.88 <span class="text-sell">-1.2%</span></p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/50 hover:text-white/80 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">$INT 3.45 <span class="text-buy">+5.0%</span></p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/50 hover:text-white/80 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">$SUI 0.56 <span class="text-buy">+0.8%</span></p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/50 hover:text-white/80 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">$CIM 2.11 <span class="text-sell">-3.1%</span></p>
+</a>
+</div>
+</div>
+<main class="flex-1 p-4 grid grid-cols-1 xl:grid-cols-12 gap-4">
+<div class="xl:col-span-3 flex flex-col gap-4">
+<div class="bg-panel-dark rounded-xl p-4 flex flex-col h-[400px]">
+<h3 class="text-lg font-bold mb-3">Order Book</h3>
+<div class="grid grid-cols-3 text-xs text-white/50 mb-2 px-2">
+<span>Price (USDC)</span>
+<span class="text-right">Amount (AGI)</span>
+<span class="text-right">Total</span>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="text-sm">
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.25</span>
+<span class="text-right">2,300.50</span>
+<span class="text-right">2,875.63</span>
+<div class="absolute right-0 top-0 bottom-0 bg-sell/20" style="width: 75%;"></div>
+</div>
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.24</span>
+<span class="text-right">1,500.00</span>
+<span class="text-right">1,860.00</span>
+<div class="absolute right-0 top-0 bottom-0 bg-sell/20" style="width: 50%;"></div>
+</div>
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.23</span>
+<span class="text-right">3,100.20</span>
+<span class="text-right">3,813.25</span>
+<div class="absolute right-0 top-0 bottom-0 bg-sell/20" style="width: 90%;"></div>
+</div>
+</div>
+<div class="py-2 text-center text-lg font-bold text-buy">1.23 USDC <span class="material-symbols-outlined text-sm align-middle">arrow_upward</span></div>
+<div class="text-sm">
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-buy">1.22</span>
+<span class="text-right">1,800.75</span>
+<span class="text-right">2,196.92</span>
+<div class="absolute right-0 top-0 bottom-0 bg-buy/20" style="width: 60%;"></div>
+</div>
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-buy">1.21</span>
+<span class="text-right">950.00</span>
+<span class="text-right">1,149.50</span>
+<div class="absolute right-0 top-0 bottom-0 bg-buy/20" style="width: 35%;"></div>
+</div>
+<div class="grid grid-cols-3 relative px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-buy">1.20</span>
+<span class="text-right">2,500.00</span>
+<span class="text-right">3,000.00</span>
+<div class="absolute right-0 top-0 bottom-0 bg-buy/20" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-panel-dark rounded-xl p-4 flex flex-col flex-1">
+<h3 class="text-lg font-bold mb-3">Recent Trades</h3>
+<div class="grid grid-cols-3 text-xs text-white/50 mb-2 px-2">
+<span>Price (USDC)</span>
+<span class="text-right">Amount (AGI)</span>
+<span class="text-right">Time</span>
+</div>
+<div class="flex-1 overflow-y-auto text-sm">
+<div class="grid grid-cols-3 px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-buy">1.23</span>
+<span class="text-right">50.25</span>
+<span class="text-right text-white/50">14:32:05</span>
+</div>
+<div class="grid grid-cols-3 px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.24</span>
+<span class="text-right">100.00</span>
+<span class="text-right text-white/50">14:32:01</span>
+</div>
+<div class="grid grid-cols-3 px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-buy">1.23</span>
+<span class="text-right">25.10</span>
+<span class="text-right text-white/50">14:31:58</span>
+</div>
+<div class="grid grid-cols-3 px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.24</span>
+<span class="text-right">75.00</span>
+<span class="text-right text-white/50">14:31:55</span>
+</div>
+<div class="grid grid-cols-3 px-2 py-1 hover:bg-white/5 rounded">
+<span class="text-sell">1.24</span>
+<span class="text-right">120.50</span>
+<span class="text-right text-white/50">14:31:50</span>
+</div>
+</div>
+</div>
+</div>
+<div class="xl:col-span-6 flex flex-col gap-4">
+<div class="bg-panel-dark rounded-xl p-4 flex-1 flex flex-col">
+<div class="flex flex-wrap gap-4 items-start">
+<div class="flex-1 flex-col gap-2">
+<p class="text-white text-base font-medium leading-normal">AGI/USDC Price Chart</p>
+<p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">1.23 USDC</p>
+<div class="flex gap-1">
+<p class="text-white/50 text-base font-normal leading-normal">24H</p>
+<p class="text-buy text-base font-medium leading-normal">+0.031 (+2.5%)</p>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-background-dark p-1 rounded-lg">
+<button class="px-3 py-1 text-xs font-bold text-white bg-primary rounded">1H</button>
+<button class="px-3 py-1 text-xs font-bold text-white/50 hover:text-white">4H</button>
+<button class="px-3 py-1 text-xs font-bold text-white/50 hover:text-white">1D</button>
+<button class="px-3 py-1 text-xs font-bold text-white/50 hover:text-white">1W</button>
+</div>
+</div>
+<div class="flex min-h-[300px] flex-1 flex-col justify-end py-4">
+<svg fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 472 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H0V109Z" fill="url(#paint0_linear_chart)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#00FFA3" stroke-linecap="round" stroke-width="2"></path>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_chart" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#00FFA3" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#00FFA3" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+</svg>
+<div class="flex justify-around pt-2">
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">10:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">12:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">14:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">16:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">18:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">20:00</p>
+<p class="text-white/50 text-[13px] font-bold leading-normal tracking-[0.015em]">Now</p>
+</div>
+</div>
+</div>
+<div class="bg-panel-dark rounded-xl flex-1 flex flex-col p-4 min-h-[200px]">
+<div class="flex border-b border-white/10 mb-3">
+<button class="px-4 py-2 text-sm font-bold border-b-2 border-primary text-white">Open Orders (3)</button>
+<button class="px-4 py-2 text-sm font-bold border-b-2 border-transparent text-white/50 hover:text-white/80">Trade History</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead class="text-xs text-white/50 uppercase">
+<tr>
+<th class="py-2 px-2">Date</th>
+<th class="py-2 px-2">Pair</th>
+<th class="py-2 px-2">Type</th>
+<th class="py-2 px-2">Price</th>
+<th class="py-2 px-2">Amount</th>
+<th class="py-2 px-2">Total</th>
+<th class="py-2 px-2 text-right">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-white/10 hover:bg-white/5">
+<td class="py-3 px-2">2023-10-27 14:30</td>
+<td class="py-3 px-2">AGI/USDC</td>
+<td class="py-3 px-2 text-buy">Buy</td>
+<td class="py-3 px-2">1.20</td>
+<td class="py-3 px-2">100.00</td>
+<td class="py-3 px-2">120.00</td>
+<td class="py-3 px-2 text-right"><button class="text-sell text-xs">Cancel</button></td>
+</tr>
+<tr class="border-b border-white/10 hover:bg-white/5">
+<td class="py-3 px-2">2023-10-27 11:15</td>
+<td class="py-3 px-2">AGI/USDC</td>
+<td class="py-3 px-2 text-sell">Sell</td>
+<td class="py-3 px-2">1.35</td>
+<td class="py-3 px-2">50.00</td>
+<td class="py-3 px-2">67.50</td>
+<td class="py-3 px-2 text-right"><button class="text-sell text-xs">Cancel</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="xl:col-span-3">
+<div class="bg-panel-dark rounded-xl p-4">
+<div class="flex mb-4">
+<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-background-dark p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-buy/80 has-[:checked]:text-black text-white/70 text-sm font-medium leading-normal">
+<span class="truncate">Buy</span>
+<input checked="" class="invisible w-0" name="order-type" type="radio" value="Buy"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 has-[:checked]:bg-sell has-[:checked]:text-black text-white/70 text-sm font-medium leading-normal">
+<span class="truncate">Sell</span>
+<input class="invisible w-0" name="order-type" type="radio" value="Sell"/>
+</label>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<button class="flex-1 text-sm bg-background-dark py-2 rounded-lg">Limit</button>
+<button class="flex-1 text-sm bg-white/5 text-white/50 py-2 rounded-lg">Market</button>
+</div>
+<div class="flex flex-col gap-4">
+<label class="flex flex-col">
+<p class="text-white/70 text-sm font-medium leading-normal pb-2">Price (USDC)</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-background-dark h-12 placeholder:text-white/30 p-3 text-base font-normal leading-normal" placeholder="1.23" value=""/>
+</label>
+<label class="flex flex-col">
+<p class="text-white/70 text-sm font-medium leading-normal pb-2">Amount (AGI)</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-background-dark h-12 placeholder:text-white/30 p-3 text-base font-normal leading-normal" placeholder="0.00" value=""/>
+</label>
+<div class="flex justify-between gap-2 text-xs">
+<button class="flex-1 py-1.5 bg-background-dark rounded hover:bg-white/10">25%</button>
+<button class="flex-1 py-1.5 bg-background-dark rounded hover:bg-white/10">50%</button>
+<button class="flex-1 py-1.5 bg-background-dark rounded hover:bg-white/10">75%</button>
+<button class="flex-1 py-1.5 bg-background-dark rounded hover:bg-white/10">100%</button>
+</div>
+<div class="text-sm space-y-2 pt-2">
+<div class="flex justify-between text-white/50"><span>Available</span><span>1,250.75 USDC</span></div>
+<div class="flex justify-between text-white/50"><span>Total</span><span>0.00 USDC</span></div>
+</div>
+<button class="w-full mt-2 flex items-center justify-center rounded-lg h-12 px-4 bg-buy text-black text-base font-bold leading-normal">
+                            Buy AGI
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
