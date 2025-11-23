@@ -9,7 +9,6 @@ const nextConfig = {
     localPatterns: [
       {
         pathname: '/api/rarity-art',
-        search: 'rarity=*',
       },
     ],
   },

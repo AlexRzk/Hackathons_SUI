@@ -6,9 +6,8 @@ module game::monster_hatchery {
     use sui::coin;
     use sui::coin::Coin;
     use sui::display;
-    use sui::object::{Self as object, UID};
-    use sui::transfer;
-    use sui::tx_context::{Self as tx_context, TxContext};
+    use sui::package;
+    use sui::transfer::{public_share_object, public_transfer, share_object};
 
     const PRICE_COMMON: u64 = 100;
     const PRICE_RARE: u64 = 500;
@@ -24,15 +23,17 @@ module game::monster_hatchery {
     const EUnknownRarity: u64 = 1;
     const EIncorrectAmount: u64 = 2;
 
+    public struct MONSTER_HATCHERY has drop {}
+
     public struct Egg has key, store {
-        id: UID,
+        id: sui::object::UID,
         rarity: u8,
         rarity_label: String,
         image_url: String
     }
 
     public struct Monster has key, store {
-        id: UID,
+        id: sui::object::UID,
         name: String,
         rarity: u8,
         rarity_label: String,
@@ -44,46 +45,54 @@ module game::monster_hatchery {
         image_url: String
     }
 
-    public struct Shop has key { id: UID, profits: Balance<CIM_CURRENCY> }
+    public struct Shop has key { id: sui::object::UID, profits: Balance<CIM_CURRENCY> }
 
-    public entry fun init(ctx: &mut TxContext) {
-        transfer::share_object(Shop { id: object::new(ctx), profits: balance::zero() });
+    fun init(witness: MONSTER_HATCHERY, ctx: &mut sui::tx_context::TxContext) {
+        share_object(Shop { id: sui::object::new(ctx), profits: balance::zero() });
+        create_displays(witness, ctx);
     }
 
     /// Users pay the exact CIM amount to receive an Egg matching the selected rarity.
-    public entry fun buy_egg(
+    #[allow(lint(self_transfer))]
+    public fun buy_egg(
         shop: &mut Shop,
         payment: Coin<CIM_CURRENCY>,
         rarity_choice: u8,
-        ctx: &mut TxContext
+        ctx: &mut sui::tx_context::TxContext
     ) {
         let price = price_for_rarity(rarity_choice);
         assert!(coin::value(&payment) >= price, ENotEnoughMoney);
         assert!(coin::value(&payment) == price, EIncorrectAmount);
 
         balance::join(&mut shop.profits, coin::into_balance(payment));
-        transfer::public_transfer(
+        public_transfer(
             Egg {
-                id: object::new(ctx),
+                id: sui::object::new(ctx),
                 rarity: rarity_choice,
                 rarity_label: rarity_label(rarity_choice),
                 image_url: image_url_for_rarity(rarity_choice)
             },
-            tx_context::sender(ctx)
+            sui::tx_context::sender(ctx)
         );
     }
 
     /// Burns an Egg and mints a Monster with pseudo-randomized stats.
-    public entry fun hatch_egg(egg: Egg, clock: &Clock, monster_name: vector<u8>, ctx: &mut TxContext) {
+    #[allow(lint(self_transfer))]
+    public fun hatch_egg(
+        egg: Egg,
+        clock: &Clock,
+        monster_name: vector<u8>,
+        ctx: &mut sui::tx_context::TxContext
+    ) {
         let Egg { id, rarity, rarity_label: _, image_url: _ } = egg;
-        object::delete(id);
+        sui::object::delete(id);
 
         let timestamp = clock::timestamp_ms(clock);
         let random_bonus = (timestamp % 10) as u64;
         let (base_str, base_agi, base_int) = base_stats(rarity);
 
-        transfer::public_transfer(Monster {
-            id: object::new(ctx),
+        public_transfer(Monster {
+            id: sui::object::new(ctx),
             name: string::utf8(monster_name),
             rarity,
             rarity_label: rarity_label(rarity),
@@ -93,7 +102,7 @@ module game::monster_hatchery {
             level: 1,
             experience: 0,
             image_url: image_url_for_rarity(rarity)
-        }, tx_context::sender(ctx));
+        }, sui::tx_context::sender(ctx));
     }
 
     public fun get_name(monster: &Monster): String { monster.name }
@@ -108,26 +117,42 @@ module game::monster_hatchery {
         }
     }
 
-    public entry fun init_display(ctx: &mut TxContext) {
-        let egg_display = display::new<Egg>(
-            ctx,
+    #[allow(lint(share_owned))]
+    fun create_displays(witness: MONSTER_HATCHERY, ctx: &mut sui::tx_context::TxContext) {
+        let publisher = package::claim(witness, ctx);
+        let egg_display = display::new_with_fields<Egg>(
+            &publisher,
             vector[
-                (string::utf8(b"name".to_vec()), string::utf8(b"{rarity_label}".to_vec())),
-                (string::utf8(b"description".to_vec()), string::utf8(b"Hatchery egg • DNA tier {rarity}".to_vec())),
-                (string::utf8(b"image_url".to_vec()), string::utf8(b"{image_url}".to_vec()))
-            ]
+                string::utf8(b"name"),
+                string::utf8(b"description"),
+                string::utf8(b"image_url")
+            ],
+            vector[
+                string::utf8(b"{rarity_label}"),
+                string::utf8(b"Hatchery egg • DNA tier {rarity}"),
+                string::utf8(b"{image_url}")
+            ],
+            ctx
         );
-        transfer::share_object(egg_display);
+        public_share_object(egg_display);
 
-        let monster_display = display::new<Monster>(
-            ctx,
+        let monster_display = display::new_with_fields<Monster>(
+            &publisher,
             vector[
-                (string::utf8(b"name".to_vec()), string::utf8(b"{name}".to_vec())),
-                (string::utf8(b"description".to_vec()), string::utf8(b"Lvl {level} • {rarity_label}".to_vec())),
-                (string::utf8(b"image_url".to_vec()), string::utf8(b"{image_url}".to_vec()))
-            ]
+                string::utf8(b"name"),
+                string::utf8(b"description"),
+                string::utf8(b"image_url")
+            ],
+            vector[
+                string::utf8(b"{name}"),
+                string::utf8(b"Lvl {level} • {rarity_label}"),
+                string::utf8(b"{image_url}")
+            ],
+            ctx
         );
-        transfer::share_object(monster_display);
+        public_share_object(monster_display);
+
+        package::burn_publisher(publisher);
     }
 
     fun price_for_rarity(rarity: u8) : u64 {
@@ -171,25 +196,25 @@ module game::monster_hatchery {
 
     fun rarity_label(rarity: u8): String {
         if (rarity == RARITY_COMMON) {
-            string::utf8(b"Common Tier".to_vec())
+            string::utf8(b"Common Tier")
         } else if (rarity == RARITY_RARE) {
-            string::utf8(b"Rare Tier".to_vec())
+            string::utf8(b"Rare Tier")
         } else if (rarity == RARITY_EPIC) {
-            string::utf8(b"Epic Tier".to_vec())
+            string::utf8(b"Epic Tier")
         } else {
-            string::utf8(b"Legendary Tier".to_vec())
+            string::utf8(b"Legendary Tier")
         }
     }
 
     fun image_url_for_rarity(rarity: u8): String {
         if (rarity == RARITY_COMMON) {
-            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=common".to_vec())
+            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=common")
         } else if (rarity == RARITY_RARE) {
-            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=rare".to_vec())
+            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=rare")
         } else if (rarity == RARITY_EPIC) {
-            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=epic".to_vec())
+            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=epic")
         } else {
-            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=legendary".to_vec())
+            string::utf8(b"https://your-domain.example/api/rarity-art?rarity=legendary")
         }
     }
 }
