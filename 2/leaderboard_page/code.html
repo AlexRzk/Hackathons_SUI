@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Monster Legends - Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#330df2",
+              "background-light": "#f6f5f8",
+              "background-dark": "#131022",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-12 lg:px-20 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 dark:border-[#2b2839] px-4 sm:px-6 lg:px-10 py-3">
+<div class="flex items-center gap-4 text-black dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Monster Legends</h2>
+</div>
+<div class="hidden lg:flex flex-1 justify-center gap-8">
+<div class="flex items-center gap-9">
+<a class="text-black/80 dark:text-white/80 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal" href="#">Marketplace</a>
+<a class="text-black/80 dark:text-white/80 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal" href="#">My Monsters</a>
+<a class="text-black/80 dark:text-white/80 hover:text-primary dark:hover:text-white text-sm font-medium leading-normal" href="#">Battle Arena</a>
+<a class="text-primary dark:text-white text-sm font-bold leading-normal" href="#">Leaderboard</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="hidden sm:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Connect Wallet</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-black/5 dark:bg-[#2b2839] text-black dark:text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-black/60 dark:text-white/60" style="font-size: 20px;">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAOEWZDUConjf9UewzWlx3aLcXfDMh_ciADfXG1ovWbvWINlXs4tqKCPc5sYCfSOdUlnVgKJMT71UQMbiTSMwj1jGtAghbkRof7L8sKIYYo1w2ka7z3T9QPrli_Nrm3HVcFpMuAm-Cd96Nggr-GtGoqOVAWNzwFWeGhC8s3prFvju2-x5TjDuLrCyEJKIpDTcNrhHztDLpPzFzagF9NAjSLEzZjC2Nrag01EefeYBlFit5waV709JcT5j-G0WfFTQShuBBDamafeLo");'></div>
+</div>
+</header>
+<main class="flex-1 px-4 py-8">
+<div class="flex flex-wrap justify-between items-start gap-4 mb-6">
+<div class="flex flex-col gap-2">
+<p class="text-black dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Hall of Champions</p>
+<p class="text-black/60 dark:text-[#a19cba] text-base font-normal leading-normal">Last updated: 2 minutes ago</p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-primary pl-4 pr-4">
+<p class="text-white text-sm font-medium leading-normal">Global</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-black/5 dark:bg-[#2b2839] hover:bg-black/10 dark:hover:bg-white/10 pl-4 pr-4">
+<p class="text-black/80 dark:text-white/80 text-sm font-medium leading-normal">Regional</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-black/5 dark:bg-[#2b2839] hover:bg-black/10 dark:hover:bg-white/10 pl-4 pr-4">
+<p class="text-black/80 dark:text-white/80 text-sm font-medium leading-normal">Friends</p>
+</div>
+<div class="flex h-9 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-lg bg-black/5 dark:bg-[#2b2839] hover:bg-black/10 dark:hover:bg-white/10 pl-4 pr-4">
+<p class="text-black/80 dark:text-white/80 text-sm font-medium leading-normal">Current Season</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-primary/10 dark:bg-[#1d1b27] px-4 min-h-[72px] py-2 justify-between rounded-lg mb-6">
+<div class="flex items-center gap-4">
+<div class="text-primary dark:text-white flex items-center justify-center rounded-lg bg-primary/20 dark:bg-[#2b2839] shrink-0 size-12">
+<span class="material-symbols-outlined" style="font-size: 24px;">military_tech</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-black dark:text-white text-base font-medium leading-normal line-clamp-1">Your Rank: #1,234</p>
+<p class="text-black/60 dark:text-[#a19cba] text-sm font-normal leading-normal line-clamp-2">You are in the top 15% of players!</p>
+</div>
+</div>
+<div class="shrink-0">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">Battle Now</button>
+</div>
+</div>
+<div class="px-0 py-3 @container">
+<div class="flex overflow-hidden rounded-xl border border-black/10 dark:border-[#3f3b54] bg-background-light dark:bg-background-dark">
+<table class="w-full">
+<thead class="bg-black/5 dark:bg-[#1d1b27]">
+<tr>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-16 text-sm font-medium leading-normal">Rank</th>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-auto text-sm font-medium leading-normal">Player</th>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-48 text-sm font-medium leading-normal">Monster Team</th>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-40 text-sm font-medium leading-normal">Team Power</th>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-24 text-sm font-medium leading-normal">Wins</th>
+<th class="px-4 py-3 text-left text-black/80 dark:text-white w-28 text-sm font-medium leading-normal">Win Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-t border-t-black/10 dark:border-t-[#3f3b54]">
+<td class="h-[72px] px-4 py-2 text-black dark:text-white text-base font-bold">#1</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" data-alt="Player one avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCZmYZLzRkSFeAx3NykxZrd2e2OR4jWlOENhC0u6NpbOEDn3HlClSh9TXXD51YTuWlO5icjbS-Ih1iup0MVfWtj86jC7BSFYqUA-JC2pbnYBC--qX3LldbeKNqa3FoQ_OqwoRljlDTGpaPmOkhiKE8UM7oT3MijuDzdyrgL2LgV_hhuALfj8rbEkwUyRGpaOG7KTyV8CISEGbG0usxJFg_ISjNXsazSq4p4kuUYJigimod2iQUR8oAFTdqY23dIxV1FE1EvLIjlIMU");'></div>
+<span class="text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">ShadowStriker</span>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex -space-x-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="ShadowStriker monster one" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDChPoNjj889peNVLrxHItSUCbOhBq64_BhsbnJZeVJ46VLyirBHx4PWPzYAALTfbTiGAjzZGrMuIOGqwPf7NHDTmS_FbJrMw3S_nlkQi4FF6cUB7h6fRjxIt1Y1Yw-JaDFvoOjNO_QV6VcrBlJ1-_i7gXCvu_R2D3TP6vkJJw4P1txoGHnZLefbtBTCuw8PFQZPaapOfiOCFENC5hRZWH2dO-YdqWO8Zr_aMANNxO2OFKOpsquU09KnXGS4kT2wObFPmQzNMRh2ms");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="ShadowStriker monster two" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwfx2kh5ObaCoPT25CQrR7jlzjxi8oiE1IYAkzUyHyh1pCssOm8-ebpqPJz6jN9RfXkZt1KVvSScXOcb7mgGa0K_tA7oLnXMwD6aESElkKP60pgqk4P3jh_Mmjjy9qvUP0PXLDPYJHNPJKTtXliuGQRHc72DHO51YXan6aOopu_FZRf6vjZhfkw_DHcB7ZpnphQasPG1kJCwcZIpHK29gpevx5y6TA3lPlJWKs-LE2I3Uyl2BRyKw8QteHiHveQN7S5Zet6x2hu-Q");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="ShadowStriker monster three" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDCf9m1E_bRwfH0YFIEwIKd-PlXOtBur2JC8JnTmTXrn2X7xQ8oIzCbustY9O5Ou6QPcfVw893mvSW-p58vhfhKgaoNtbyfQPDzY4YN-jzmAmwS0fthXk0XRPEqwdXYEpRDGWgb28R4HT-COZBU9T0VP29gu6NaqSvjKcdiYVEwFnwEn3tVzf38sjJfRL0WG00TtMHMeByKic2nJCwk8AnMHY7lJ7ggOYOhmRMdEcbzZkosj3MZwdqi_L0RQSjTQWN__qWcw_KfRsU");'></div>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">1,250,000</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">342</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">88%</td>
+</tr>
+<tr class="border-t border-t-black/10 dark:border-t-[#3f3b54]">
+<td class="h-[72px] px-4 py-2 text-black dark:text-white text-base font-bold">#2</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" data-alt="Player two avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9fLPv7LZr4Ntyvd7PpiWnuFYQhi83lqbYl8EKqTgvyv0B2hTK6ftXNiSUd634NdQ4cvprKCnPmD4ewwphWvf6-BLKfRarbgfgRV-LUi-onzd8-kNey45UiRTc8BfZD7_ywQa1OtHhUdkGdi3wKubBl0m0EDmMTX6w9JYqD4JK78idKLJHDpHqYnTW7ptZdmt7yanysp5tucTxDJeznQ3zjpooklbwqd5gqB4esbxe2FmA3zORUEKr8k1TrCKWhhUu7OrvEqj9NUY");'></div>
+<span class="text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">VortexViper</span>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex -space-x-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="VortexViper monster one" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrtex3vA_bh10qUrhewYWT2hdzSm4UQCQ_NlDKhdaZq6eZdnGPgFuW8PYbRBKozblEh-DRlfKiTPU4l58OxJMOvzyFfv3jU8zuD7_d-pVtLwvhcgOM1UrH8edommc-JVzQpGc-aoE_z61-u2DEFJrry7hicDKVZnuFt7X0SOKxZgZjxxKMvjaDelbHVOs9uFIWE3cPBzzli9kWKz9pHvyFYMccZGIDMkTZUPXzRGrWL7FVI805m7xqyAwe4LwT1BsjpuVmU5Doabs");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="VortexViper monster two" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBquYEmVeBXVNC81WI6jNUO0_oWR-RBBvi6GFqDjDZE5VlKILiVfYCr71hzwy9DyhK-OKZ9jnsmHS-Re0CcyXsxZJ-N_jBx15J-lJEmZUUiJkpwn4_bbeU9PcDF8JEzanJok_RhmF0Rm18ochwTXK68kSALU50zvurlZKHfEry9pg6FtIdnVbvWclYuN7rrY0JfW_zhggZxmP-NF6UKvYnTqZatELeyQVkJWox_wXJhJ7V6Cc79FL2_xDtDqIEIpstC1ZnFGmLE2TI");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="VortexViper monster three" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTB6z5OWIHP0Y1446SYlVAmjH0LC_FxsJkhLKS7oFXe_WCr-31P8AqyKhZU4N6Telzpvx0OAjUb0W0lrXpTy53QmLOBfwQRUe-nNk96NwwgmwpB70dyF7LmLprA4pVnlU64AVzxVfWkVAr7mbNuJba3VoXbYlZbX-sv-MPi1o9MvN9PbTXY7YFqJpwNliZ93gnNdBMxCsoN7zsg9_Argvx8Ha_oJwk5ODIx8AqZcTCKMOf3WBT333zKZEDMR1E3n0-QQ9P4wEHYZ0");'></div>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">1,210,000</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">315</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">85%</td>
+</tr>
+<tr class="border-t border-t-black/10 dark:border-t-[#3f3b54]">
+<td class="h-[72px] px-4 py-2 text-black dark:text-white text-base font-bold">#3</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" data-alt="Player three avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD1pcEOdZ6AfwGMORtKpNkOtK0ccxRW1a4wwJVzYwLNIH0ThRbJgN4qSHp9V6DwzlVSkF8WaYOjEh60nAKvovUp4mQ8ypbnJ3RDcL5kKjWsS7O2ajA2VUZ-FgwaH7rtoMtyxps8dduDslLnGwfBOV3qNUZp6mLOqKmdU1oM-d4JoKCbruXvOxcrhX-IlOeyQVSGVc1zTXgNiPOdVdcVfZ07xMUXTfSqihZ45dVnxx8pFhv2-riMVlRONraBCKwdy3eX0DyjDqD1TO0");'></div>
+<span class="text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">CyberWraith</span>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex -space-x-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="CyberWraith monster one" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5HE33ImHFexlZMcX45ZK4EKIoT466DhGOdGeIhe_zfnpsllzblRKVl2y58bDJgEJmaAR_XMDhZt6zuCx22L48ZSuNk0CosdQYe13vI-WCl08lBBSVLRCOhxFgASrAnpqwJNKepI4hhYcd_TNiWUl3NdmRF-5mDT7ZlvrCdOhovFzIA8Fnh3iO2wWpHO5rVPdl0lYpya8R4izspqpspV4o7GSoguTR1YUFADllmP8iVn3JN6XWZFChtZcBjs8hWAWjK1YEKRNCPQk");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="CyberWraith monster two" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDbBS2M2iw4paqQftbRtlnuMpLd8PSQDj0lrkY8mnKQfH82mvs0-3g7dqg376iFQpsLYRZ13jcy9QwNxc1i1gFTJJIBRevplC3iDCUybK6w4Dp1x0avdGM3RsEfQK7BiLIu68OB9mOLtWfGebiQ-0uuTUibsN450mYX8JDLqPd9n_hMj2iMAGQaPNLL35zhqDeJO1sOV5HWO5IlyO6RgHWyWU4MtljkSEAGSqQout2kHEIh4khSJa_1Zj_sQgb21uJPE1Tlhwk8dg0");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="CyberWraith monster three" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCuinU6WHCOFI8deXW0orptBNU9I6fhV8y00t39r8MB0aUKTMWaDfMaU6YhtJJl7cirQtFI2vWMILrcMVMEMotJYWyVAXaz_OTNZGx7tjPM_tr7K9otpulzOqtR1x8MnELkgddIdknXBtvJOptRmBju2Sj7ccc1tFsiCaRKY0BzwaXBFTX6BFxShYyWu8qOOolIPjRVEpBil6ODjpX_l2IqZ1IrF9_nR3FNTJeuPOulzjWjt3FaqCi3-h_EcDCnH72HDJwc4XMlIEI");'></div>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">1,180,000</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">299</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">82%</td>
+</tr>
+<tr class="border-t border-t-black/10 dark:border-t-[#3f3b54]">
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-base font-bold">#4</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" data-alt="Player four avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAE60C2JMc8Wo_rGRocik7c6nFGji6362gcjw_kHk4x3HFqkM4Jujd9rbCw96tHQwnnifS6uom31uN6M9YUDP3-zmsPpAenOTUa1kUPdyEgrfUU_xUYEJcAEaIauhki3hV9KfSJ2sreiUV41XZsH_LK50Nc1QAVSpdWvqClKwcD25bLnV8Z-Sc9wLblU3gEVBHQoLMwZe4xRYQWZI2qixgNODZx7w51MX8zvG49slQ_gzITH8T2rQ52oFICKFiiewtia-Z21mkn-L8");'></div>
+<span class="text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">NovaFury</span>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex -space-x-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="NovaFury monster one" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFM1vVvt1IKWNhxpjCTpY7kSVZKwbtWm0M_eACqKepHgv9lTVJGp62nX5EdVZMlukBkL6eAZaEvb9zeivSlDYcd351KZD6T3VwF4pFPX0Ymg4o_Oj3cIojdZrUa5bUY4oRN6y_mO666pAgDBO-o46kMIoK_GOsdNpK9Xy-zcEWObbXCmTl3-Z-h7zMfvrzGgooEreJHYKz34W0zRvMpLkopLX4SBhLVJot1Te5_sv7sKbRUrsAqYL7eicumFNZR5ZxUB-bvlhGs2Y");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="NovaFury monster two" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYdocik_J9H4RUyevlkP-TTygNicgGHE2HraLx9h8nfbF3CagSUWO-xBEzUB5mZcvwZEkL5BiuhONRwVLXX3vMo-92vGKo7ae3ynBc3W2iay6S7aj5cLc7GfqUfl5p9UVFPCFpqR8jrs5_uegZJr0Pu-F-yikrmaTw0XXVU5TxGk8TM8sPBo8UmyxRgL1Qf89Z-3QR_RD1mpkb4Pb4eIf7lNUd9QtPY8Bt9T6LVZTwOSX0JN-M9iS_mgmiW0915Nl9QVZombia7kI");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="NovaFury monster three" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCNyIhYd10So6pvqx-XBDnXy_f-wf8T7aSX_ArcPNJXx3epNRCXzjL29CubDnUvXenJ6_U4skZurPL_23OmLEi2-5Gkislxpbidf1QMLxS-Ye4bQdLVVV3QHUioGxAccr22a3LdJkqhZWFLdXmQEclqHWlIs44o2RxkxZXyCpn3pw-BHR3SKE8medSIMg6rIQqNISwZTMyFMKfw_oEMIEnSilxf-6p0WQKGlMYrt6i4M2aLwbtFa0UrXD1XMN_AQ5ao8ZXxb8-BiHk");'></div>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">1,155,000</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">280</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">80%</td>
+</tr>
+<tr class="border-t border-t-black/10 dark:border-t-[#3f3b54]">
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-base font-bold">#5</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10" data-alt="Player five avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuArEsBqblJLvq6mItuCj47wEwOYmevFmYeDzU076ZaIa5FfK-BfgcTSUyQSSF_6oAB-G9h3_SDnn__bVzHzeYyxTxwRxHeR2aLqCmH3bJ4mwkeu6LTDYZ6y2dohXejNEEUQCaM-93GGs3qtLDoI0iLwbQjT_3fqEEHCmxweV-83RLas0wWL9pWPSWit9y8IHY68TEQD0NK1xkAhkg92U8e-UQUjwo8Zf8EQTAYVifQ1TQN6xLTXT3tlGSaCiHcp3F1CPqPb0E7bY9c");'></div>
+<span class="text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">BlazeHeart</span>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2">
+<div class="flex -space-x-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="BlazeHeart monster one" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAHLiFgwjQkr1G9tbZlhGBCkh865I7zLVR281ytDoEaESjtRaiHNIj8-boLb7DQz4bXD2e0YZaHtbcRmVGl3OcZ3ayDNFFKEqOO1COYYVykphSJbRNa4_y_bUCktTvV2gLBgWB6IygjGqvYDToEEpgeZFHmjf5gU32cnkwPDvrpkziMzVqmjzal8dP0YGD3U5bmwlwInFqgnYNFhXeXb2fFjBIWNzUvSk2dyT8H5Mx39oUCpxooYJ37-eAtsQ5TQGjkPJe-2mjymo");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="BlazeHeart monster two" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUiO_4rO6I8Rr8hS98_3yF6y2Ty3zhnPEuJPULv_EiyUTowBMNeJ1J93ejEQRkaF1FLhfbI9jmTor9cxp3bnkXPq9OB1d-B4BwyvYn2VUkEoIg7_SJZsvZcAj4S4bqZhvkQZKaBp6vPGrEBCm9nkCGOl4StpV3kRYCyZdhp3xLCQD1P5jonH5lhu6OF8hwO8oEeIlnH0mRk-KJv0Mk6010Ofl4mdBfVd4VKV8sRo2I6EmePcP4JSwuNPR5QGIthrUQDxnf0taO13E");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 border-2 border-background-light dark:border-background-dark" data-alt="BlazeHeart monster three" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCo-rr8DE4XOsi3PhL4Vcc0slmEydTujsn-89SymguC6-fG1HRX9fDReJiR1pmB73-eWeX8vq8zJ6X2kOPNEc-vQxK32QBoUnZcuwHDuGQBP83rtKLPyX2o-xA6o4X_7SJjnjROVmBvcBjLmmFao0OEquHKW1AgvqtOrl4ZwoIwWg4NOgUZeLpieVMsP4RSWvl86pJe8mW5fDmmTx6LV8OWrd7cnCj74zds1rwBAWBERVEC6rcWcG94A60LLLlGdHK68SeHoqQv4CQ");'></div>
+</div>
+</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">1,120,000</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">275</td>
+<td class="h-[72px] px-4 py-2 text-black/80 dark:text-[#a19cba] text-sm font-normal leading-normal">78%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex justify-center items-center gap-2 mt-8">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-black/5 dark:bg-[#2b2839] text-black dark:text-white gap-2 text-sm font-bold min-w-0 px-2.5">
+<span class="material-symbols-outlined text-black/60 dark:text-white/60">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary text-white text-sm font-bold">1</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-black/5 dark:bg-[#2b2839] text-black/80 dark:text-white/80 text-sm font-bold">2</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-black/5 dark:bg-[#2b2839] text-black/80 dark:text-white/80 text-sm font-bold">3</button>
+<span class="text-black/60 dark:text-white/60">...</span>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-black/5 dark:bg-[#2b2839] text-black/80 dark:text-white/80 text-sm font-bold">10</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-black/5 dark:bg-[#2b2839] text-black dark:text-white gap-2 text-sm font-bold min-w-0 px-2.5">
+<span class="material-symbols-outlined text-black/60 dark:text-white/60">chevron_right</span>
+</button>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>
