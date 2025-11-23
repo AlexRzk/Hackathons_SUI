@@ -1,5 +1,6 @@
 import { DelegatedStake, getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
+import { Secp256k1Keypair } from "@mysten/sui/keypairs/secp256k1";
 import { create_pool_cetus_CLMM, get_holding, swap } from "../tools";
 import {
   Config,
@@ -32,6 +33,7 @@ import {
   withdraw_suilend,
 } from "../tools/suilend";
 import { getVaults } from "../tools/sui/defi/get_vaults";
+import { move_call, IMoveCallParams } from "../tools/sui/transaction/move_call";
 
 /**
  * Main class for interacting with Sui blockchain
@@ -39,13 +41,13 @@ import { getVaults } from "../tools/sui/defi/get_vaults";
  *
  * @class SuiAgentKit
  * @property {SuiClient} client - Sui RPC connection
- * @property {Ed25519Keypair} wallet - Wallet keypair for signing transactions
+ * @property {Ed25519Keypair | Secp256k1Keypair} wallet - Wallet keypair for signing transactions
  * @property {string} wallet_address - Public key of the wallet
  * @property {Config} config - Configuration object
  */
 export class SuiAgentKit {
   public client: SuiClient;
-  public wallet: Ed25519Keypair;
+  public wallet: Ed25519Keypair | Secp256k1Keypair;
   public wallet_address: string;
   public config: Config;
 
@@ -71,7 +73,20 @@ export class SuiAgentKit {
     this.client = new SuiClient({
       url: rpc_url,
     });
-    this.wallet = Ed25519Keypair.fromSecretKey(private_key);
+
+    // Auto-detect keypair type from private key format
+    // ED25519 keys have a specific bech32 flag, Secp256k1 has another
+    try {
+      this.wallet = Ed25519Keypair.fromSecretKey(private_key);
+    } catch (ed25519Error) {
+      // If ED25519 fails, try Secp256k1
+      try {
+        this.wallet = Secp256k1Keypair.fromSecretKey(private_key);
+      } catch (secp256k1Error) {
+        throw new Error(`Invalid private key format. Must be ED25519 or Secp256k1. ED25519 error: ${ed25519Error}. Secp256k1 error: ${secp256k1Error}`);
+      }
+    }
+
     this.wallet_address = this.wallet.getPublicKey().toSuiAddress();
 
     // Handle both old and new patterns
@@ -157,6 +172,10 @@ export class SuiAgentKit {
 
   async getVaults(params: IGetVaultsParams) {
     return getVaults(this, params);
+  }
+
+  async moveCall(params: IMoveCallParams): Promise<TransactionResponse> {
+    return move_call(this, params);
   }
 
   // async borrowSuilend(params: IBorrowParams): Promise<TransactionResponse> {

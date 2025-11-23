@@ -22,6 +22,8 @@ COPY sui-agent-kit /app/sui-agent-kit
 
 # 5. Copie des fichiers de l'agent
 COPY nautilus/app.py .
+COPY nautilus/battle_engine.py .
+COPY nautilus/battle_orchestrator.py .
 
 # 6. Exposition du port (si nécessaire pour le serveur hello_nautilus)
 EXPOSE 3000

@@ -141,6 +141,11 @@ app.post("/execute", async (req, res) => {
         );
         break;
 
+      case "EXECUTE_MOVE_CALL":
+        // Generic Move call execution
+        result = await agent.moveCall(params);
+        break;
+
       default:
         return res.status(400).json({
           error: `Unknown action: ${action}`,
@@ -152,6 +157,7 @@ app.post("/execute", async (req, res) => {
             "GET_HOLDINGS",
             "GET_STAKE",
             "TRANSFER",
+            "EXECUTE_MOVE_CALL",
           ],
         });
     }
