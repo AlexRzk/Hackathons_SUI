@@ -10,6 +10,9 @@ const nextConfig = {
       {
         pathname: '/api/rarity-art',
       },
+      {
+        pathname: '/api/rarity-art/*',
+      },
     ],
   },
 };
