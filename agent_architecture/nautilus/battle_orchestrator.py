@@ -8,6 +8,7 @@ Coordinates between battle simulation (off-chain) and blockchain settlement (on-
 import requests
 import json
 from battle_engine import Monster, BattleEngine
+from nautilus_enclave import get_enclave
 
 # === CONFIGURATION ===
 NIMBUS_BRIDGE_URL = "http://nimbus-bridge:3001"
@@ -107,6 +108,25 @@ def run_battle_and_settle(monster1_id: str, monster2_id: str):
     print("\n[2/3] Simulating battle off-chain (TEE)...")
     engine = BattleEngine(monster1, monster2)
     result = engine.simulate_battle()
+    
+    # Step 2.5: Sign result with Nautilus enclave
+    print("\n[2.5/3] Signing result with Nautilus enclave...")
+    enclave = get_enclave()
+    signed_result = enclave.sign_battle_result(
+        result["winner_id"],
+        result["loser_id"],
+        result["xp_gain"],
+        result["battle_log"]
+    )
+    print(f"  ✓ Signature: {signed_result['signature'][:32]}...")
+    print(f"  ✓ Public Key: {signed_result['public_key'][:32]}...")
+    print(f"  ✓ PCR0: {signed_result['pcr0'][:32]}...")
+    
+    # Merge signed data with battle result
+    result['signature'] = signed_result['signature']
+    result['enclave_public_key'] = signed_result['public_key']
+    result['enclave_attestation'] = signed_result['attestation']
+    result['payload'] = signed_result['payload']
     
     # Step 3: Settle on blockchain
     print("\n[3/3] Settling battle on blockchain...")
