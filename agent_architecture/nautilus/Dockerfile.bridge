@@ -11,6 +11,7 @@ RUN npm install -g pnpm
 # 1. Copy and Build SDK
 COPY sui-agent-kit /app/sui-agent-kit
 WORKDIR /app/sui-agent-kit
+ENV CI=true
 RUN pnpm install
 RUN pnpm build
 
