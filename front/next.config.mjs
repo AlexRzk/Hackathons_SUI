@@ -11,6 +11,9 @@ const nextConfig = {
         pathname: '/api/rarity-art',
         search: 'rarity=*',
       },
+      {
+        pathname: '/api/rarity-art/*',
+      },
     ],
   },
 };
